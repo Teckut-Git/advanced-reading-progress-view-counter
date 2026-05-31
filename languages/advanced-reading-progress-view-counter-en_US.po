@@ -1,0 +1,71 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-11 08:20+0000\n"
+"PO-Revision-Date: 2026-02-13 12:50+0530\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.8\n"
+"X-Poedit-Basepath: .\n"
+
+#. Name of the plugin
+#: advanced-reading-progress-view-counter.php:648
+msgid "Advanced Reading Progress & View Counter"
+msgstr "Advanced Reading Progress & View Counter"
+
+#. Description of the plugin
+msgid "Advanced reading progress bar with optional view counter controls."
+msgstr "Advanced Reading Progress & View Counter"
+
+#: src/progressive-reading-block/block.json:1
+#: build/progressive-reading-block/block.json:1
+msgctxt "block description"
+msgid "Advanced reading progress bar with optional view counter controls."
+msgstr "Advanced reading progress bar with optional view counter controls."
+
+#: src/progressive-reading-block/block.json:1
+#: build/progressive-reading-block/block.json:1
+msgctxt "block title"
+msgid "Advanced Reading Progress & View Counter"
+msgstr "Advanced Reading Progress & View Counter"
+
+#: advanced-reading-progress-view-counter.php:576
+msgid "Display mode must be bar or radial."
+msgstr "Display mode must be bar or radial."
+
+#: advanced-reading-progress-view-counter.php:581
+msgid "Font size must be 96px or below."
+msgstr "Font size must be 96px or below."
+
+#: advanced-reading-progress-view-counter.php:572
+msgid "Please choose at least one valid post type."
+msgstr "Please choose at least one valid post type."
+
+#: advanced-reading-progress-view-counter.php:560
+msgid "Please provide valid hex colors."
+msgstr "Please provide valid hex colors."
+
+#: advanced-reading-progress-view-counter.php:564
+msgid "Position must be top or bottom."
+msgstr "Position must be top or bottom."
+
+#: advanced-reading-progress-view-counter.php:649
+msgid "Reading Progress & Views"
+msgstr "Reading Progress & Views"
+
+#. Author of the plugin
+msgid "The WordPress Contributors"
+msgstr "The WordPress Contributors"
+
+#: advanced-reading-progress-view-counter.php:568
+msgid "Thickness must be a positive integer."
+msgstr "Thickness must be a positive integer."
+
+#: advanced-reading-progress-view-counter.php:73
+msgid "Views:"
+msgstr "Views:"

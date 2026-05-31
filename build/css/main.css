@@ -1,0 +1,80 @@
+#arpvc-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background-color: #f1f1f1;
+  z-index: 999999 !important;
+  display: block;
+}
+
+#arpvc-progress-fill {
+  width: 0%;
+  height: 100%;
+  background-color: #ff0000;
+  transition: width 0.1s linear;
+  display: block;
+}
+
+#arpvc-progress-radial {
+  position: fixed;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  z-index: 999999;
+}
+
+.arpvc-radial--bottom-right {
+  right: 20px;
+  bottom: 20px;
+  top: auto;
+  left: auto;
+}
+
+.arpvc-radial--bottom-left {
+  left: 20px;
+  bottom: 20px;
+  right: auto;
+  top: auto;
+}
+
+.arpvc-radial--top-right {
+  right: 20px;
+  top: 80px;
+  bottom: auto;
+  left: auto;
+}
+
+.arpvc-radial--top-left {
+  left: 20px;
+  top: 80px;
+  bottom: auto;
+  right: auto;
+}
+
+#arpvc-progress-radial svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.arpvc-radial-track {
+  fill: none;
+  stroke: #e5e5e5;
+  stroke-width: 12;
+}
+
+.arpvc-radial-fill {
+  fill: none;
+  stroke: #ff0000;
+  stroke-width: 12;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.1s linear, stroke 0.2s ease;
+}

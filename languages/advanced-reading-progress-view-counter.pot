@@ -1,0 +1,74 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Advanced Reading Progress & View Counter\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-11 08:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.8.1; wp-6.9.1; php-7.4.30\n"
+"X-Domain: advanced-reading-progress-view-counter"
+
+#. Name of the plugin
+#: advanced-reading-progress-view-counter.php:648
+msgid "Advanced Reading Progress & View Counter"
+msgstr ""
+
+#. Description of the plugin
+msgid "Advanced reading progress bar with optional view counter controls."
+msgstr ""
+
+#: src/progressive-reading-block/block.json:1
+#: build/progressive-reading-block/block.json:1
+msgctxt "block description"
+msgid "Advanced reading progress bar with optional view counter controls."
+msgstr ""
+
+#: src/progressive-reading-block/block.json:1
+#: build/progressive-reading-block/block.json:1
+msgctxt "block title"
+msgid "Advanced Reading Progress & View Counter"
+msgstr ""
+
+#: advanced-reading-progress-view-counter.php:576
+msgid "Display mode must be bar or radial."
+msgstr ""
+
+#: advanced-reading-progress-view-counter.php:581
+msgid "Font size must be 96px or below."
+msgstr ""
+
+#: advanced-reading-progress-view-counter.php:572
+msgid "Please choose at least one valid post type."
+msgstr ""
+
+#: advanced-reading-progress-view-counter.php:560
+msgid "Please provide valid hex colors."
+msgstr ""
+
+#: advanced-reading-progress-view-counter.php:564
+msgid "Position must be top or bottom."
+msgstr ""
+
+#: advanced-reading-progress-view-counter.php:649
+msgid "Reading Progress & Views"
+msgstr ""
+
+#. Author of the plugin
+msgid "The WordPress Contributors"
+msgstr ""
+
+#: advanced-reading-progress-view-counter.php:568
+msgid "Thickness must be a positive integer."
+msgstr ""
+
+#: advanced-reading-progress-view-counter.php:73
+msgid "Views:"
+msgstr ""
