@@ -1,120 +1,187 @@
 === Advanced Reading Progress & View Counter ===
 Contributors: teckut
-Tags: progress bar, reading, post views, view counter, shortcode
+Tags: reading progress, progress bar, post views, view counter, reading indicator
 Requires at least: 6.7
-Tested up to:      6.9
-Requires PHP:      7.4
-WC tested up to:   10.5.3
+Tested up to: 7.0
+Requires PHP: 7.4
+WC tested up to: 10.8.1
 WC requires at least: 6.5
-Stable tag: 1.0.0
+Stable tag: 1.0.2
 Donate link: https://teckut.com/
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Add a reading progress indicator and an anti-refresh post view counter with flexible placement and shortcode support.
+Add beautiful reading progress bars and smart post view counters to improve engagement and user experience on your WordPress site.
 
 == Description ==
 
-Advanced Reading Progress & View Counter helps you improve reading experience and track post views more reliably.
+Advanced Reading Progress & View Counter helps improve user engagement by showing visitors:
 
-Features:
+✔ How much content they have read
+✔ Which posts are most popular
+✔ A cleaner and more interactive reading experience
 
-* Reading progress indicator with `bar` and `radial` display modes.
-* Color, position, thickness, and post type targeting controls.
-* Post view counter badge with configurable prefix/suffix, colors, and position.
-* Anti-refresh lock window to reduce inflated counts from repeated refreshes.
-* Lock window can be disabled by setting it to `0`.
-* Shortcode support for manual counter placement.
+The plugin combines a customizable reading progress indicator with a lightweight post view counter that includes anti-refresh protection.
 
-Shortcodes:
+Perfect for:
 
-* `[arpvc_view_counter]`
-* `[arpvc_read_count]` (alias)
-* `[arpvc_view_counter post_id="123"]`
-* `[arpvc_view_counter prefix="Views:" suffix="total"]`
-* `[arpvc_view_counter show_zero="0"]`
+* Blogs
+* News websites
+* Tutorial sites
+* Documentation websites
+* Magazine-style WordPress websites
 
-Notes:
+= Why Use This Plugin? =
 
-* If badge position is set to `Shortcode only`, the badge is rendered only where shortcode is used.
-* Anti-refresh lock logic still applies to counting unless lock window is set to `0`.
+Many readers leave long articles before finishing them.
 
-== Installation ==
+A reading progress bar encourages visitors to continue scrolling and improves content interaction. At the same time, the built-in view counter helps display content popularity and social proof.
 
-1. Upload the plugin folder to `/wp-content/plugins/advanced-reading-progress-view-counter/`.
-2. Activate the plugin from the **Plugins** screen in WordPress.
-3. Open **Reading Progress & Views** in wp-admin.
-4. Configure progress indicator settings in **Progress Settings** tab.
-5. Configure counter settings in **View Counter** tab.
+This plugin is lightweight, easy to configure, and works without external tracking services.
 
-== Development & Source Code ==
+= Reading Progress Features =
 
-This plugin uses a modern build process (npm + gulp) to generate optimized production assets.
+* Top reading progress bar
+* Circular/radial progress indicator
+* Custom colors and thickness
+* Multiple display positions
+* Mobile-friendly design
+* Select supported post types
+* Lightweight frontend assets
 
-The full human-readable, uncompiled development source code is publicly available at:
+= Post View Counter Features =
 
-https://github.com/Teckut-Git/advanced-reading-progress-view-counter
+* Smart anti-refresh protection
+* Configurable lock window
+* Custom prefix & suffix
+* Multiple display positions
+* Manual shortcode placement
+* Support for specific post IDs
+* Hide zero-view counts
 
-The plugin distributed via WordPress.org contains compiled production assets located in:
+= Easy Customization =
 
-* build/js/
-* build/css/
+* Beginner-friendly settings
+* Clean WordPress admin UI
+* No coding required
+* Lightweight and performance-focused
 
-Developers can review, study, modify, and rebuild the original source code using the instructions below.
+== Shortcodes ==
 
-= Rebuild Instructions =
+Display the counter anywhere manually:
 
-To regenerate compiled assets from source:
+`[arpvc_view_counter]`
 
-1. Clone the repository:
-   git clone https://github.com/Teckut-Git/advanced-reading-progress-view-counter
+Alias shortcode:
 
-2. Navigate into the project directory:
-   cd advanced-reading-progress-view-counter
+`[arpvc_read_count]`
 
-3. Install dependencies:
-   npm install
-
-4. Build production files:
-   npx gulp build
-
-This ensures transparency and compliance with WordPress.org plugin guidelines.
-
-== Frequently Asked Questions ==
-
-= How does "Lock window (hours)" work? =
-
-It is a cooldown per visitor per post.
-
-* Example: if set to `24`, the same visitor adds at most one view to that post every 24 hours.
-* Repeated refreshes inside the window do not increase the count.
-
-= Can I disable the lock window? =
-
-Yes. Set `Lock window (hours)` to `0` to disable lock-based deduplication.
-
-= How do I place the view counter manually? =
-
-Set badge position to `Shortcode only`, then place `[arpvc_view_counter]` where needed.
-
-= Does this plugin count bot traffic? =
-
-The plugin includes basic request filtering to skip obvious bot-like user agents and non-standard request contexts.
-
-= Can I show the counter on a specific post from another page? =
-
-Yes, use:
+Show views for a specific post:
 
 `[arpvc_view_counter post_id="123"]`
 
+Add custom text:
+
+`[arpvc_view_counter prefix="Views:" suffix="Total"]`
+
+Hide counter when views are zero:
+
+`[arpvc_view_counter show_zero="0"]`
+
+== Installation ==
+
+1. Upload the plugin folder to `/wp-content/plugins/advanced-reading-progress-view-counter/`
+2. Activate the plugin from the **Plugins** page in WordPress
+3. Open **Reading Progress & Views** from the admin menu
+4. Configure progress bar settings
+5. Configure view counter settings
+6. Save changes and start tracking engagement
+
+== Screenshots ==
+
+1. Reading progress bar displayed at the top of a blog post
+2. Circular reading progress indicator example
+3. Post view counter displayed on a single post
+4. Reading Progress settings page
+5. View Counter settings page
+
+== Frequently Asked Questions ==
+
+= How does the anti-refresh protection work? =
+
+The plugin stores a temporary cooldown period per visitor and post.
+
+Example:
+
+If the lock window is set to `24 hours`, refreshing the same post multiple times within that period will not increase the view count.
+
+= Can I disable the lock window? =
+
+Yes.
+
+Simply set the lock window value to `0`.
+
+= Can I manually place the counter? =
+
+Yes.
+
+Set the counter position to `Shortcode Only` and place:
+
+`[arpvc_view_counter]`
+
+anywhere inside posts, pages, widgets, Elementor, Gutenberg blocks, or page builders.
+
+= Does the plugin require external services? =
+
+No.
+
+Everything works directly inside WordPress without third-party APIs or tracking systems.
+
+= Is the plugin lightweight? =
+
+Yes.
+
+The plugin is optimized for performance and loads only the required frontend assets.
+
+== Development ==
+
+Source code is available on GitHub:
+
+https://github.com/Teckut-Git/advanced-reading-progress-view-counter
+
+Production assets included in the plugin are generated using npm and gulp.
+
 == Changelog ==
 
+= 1.0.2 =
+
+* Added a WordPress Playground live preview demo with sample content.
+* Added a preconfigured demo setup for the reading progress indicator and view counter.
+
+= 1.0.1 =
+
+* Improved WordPress.org plugin page content
+* Enhanced plugin documentation and readability
+* Improved shortcode explanations
+* Updated compatibility for latest WordPress and WooCommerce versions
+* UI and presentation improvements
+
 = 1.0.0 =
-* Initial release.
-* Progress indicator settings panel.
-* Post view counter with lock window and shortcode support.
+
+* Initial release
+* Reading progress indicator
+* Circular progress display
+* Post view counter
+* Shortcode support
+* Anti-refresh lock system
 
 == Upgrade Notice ==
+
+= 1.0.2 =
+Added a WordPress Playground live preview demo with sample content and preconfigured plugin settings.
+
+= 1.0.1 =
+Improved plugin page readability, documentation, and latest compatibility updates.
 
 = 1.0.0 =
 Initial public release.
