@@ -1,0 +1,52 @@
+/**
+ * ARPVC Frontend Styles - Reading Progress Bar
+ */
+#arpvc-progress-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: transparent;
+  z-index: 999999;
+  pointer-events: none;
+}
+
+#arpvc-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: #0073aa;
+  transition: width 0.1s linear, background-color 0.3s ease;
+  border-radius: 0 0 3px 0;
+}
+
+/* Position variants */
+.arpvc-position-top #arpvc-progress-container { top: 0; }
+.arpvc-position-bottom #arpvc-progress-container { bottom: 0; top: auto; }
+
+/* Color variants (set via inline style from settings) */
+.arpvc-color-custom #arpvc-progress-bar { background-color: var(--arpvc-bar-color, #0073aa); }
+
+/* View Counter */
+.arpvc-view-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.arpvc-view-counter .dashicons {
+  font-size: 1rem;
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Admin notice styles */
+.arpvc-admin-notice {
+  padding: 12px 20px;
+  margin: 20px 0;
+  border-left: 4px solid #0073aa;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
