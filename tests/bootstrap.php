@@ -1,17 +1,17 @@
 <?php
-// Bootstrap file for PHPUnit tests
-// This loads WordPress test environment
+/**
+ * PHPUnit bootstrap for ARPVC unit tests.
+ *
+ * The plugin logic is mostly made up of pure functions. To keep the test suite
+ * runnable without a full WordPress installation (e.g. in CI), this bootstrap
+ * provides small, deterministic stand-ins for the WordPress functions the
+ * plugin calls. Integration tests against a real WordPress install can still
+ * be added separately.
+ *
+ * @package AdvancedReadingProgressViewCounter
+ */
 
-if (!defined('ABSPATH')) {
-    define('ABSPATH', '/tmp/wordpress/');
-}
+define( 'ABSPATH', __DIR__ . '/' );
 
-// Load WordPress test setup if available
-$wp_tests_dir = getenv('WP_TESTS_DIR') ?: '/tmp/wordpress-tests-lib';
-if (file_exists($wp_tests_dir . '/includes/functions.php')) {
-    require_once $wp_tests_dir . '/includes/functions.php';
-    tests_add_filter('muplugins_loaded', function() {
-        require_once dirname(__DIR__) . '/advanced-reading-progress-view-counter.php';
-    });
-    require_once $wp_tests_dir . '/includes/bootstrap.php';
-}
+require_once __DIR__ . '/wp-stubs.php';
+require_once dirname( __DIR__ ) . '/advanced-reading-progress-view-counter.php';

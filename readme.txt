@@ -2,11 +2,11 @@
 Contributors: teckut
 Tags: reading progress, progress bar, post views, view counter, reading indicator
 Requires at least: 6.7
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.4
-WC tested up to: 10.8.1
+WC tested up to: 11.3.1
 WC requires at least: 6.5
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 Donate link: https://teckut.com/
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -153,6 +153,15 @@ Production assets included in the plugin are generated using npm and gulp.
 
 == Changelog ==
 
+= 1.0.3 =
+
+* Fixed a fatal error when view counter margin or padding settings contained fewer than four values.
+* Fixed stale settings being used later in a request after an update.
+* Improved view counting accuracy under concurrent requests and completed the anti-refresh lock before counting.
+* Hardened the view-tracking cookie with an explicit SameSite attribute.
+* Updated tested compatibility to WordPress 7.1 and WooCommerce 11.3.1.
+* Added automated tests and CI checks to protect plugin stability.
+
 = 1.0.2 =
 
 * Added a WordPress Playground live preview demo with sample content.
@@ -176,6 +185,9 @@ Production assets included in the plugin are generated using npm and gulp.
 * Anti-refresh lock system
 
 == Upgrade Notice ==
+
+= 1.0.3 =
+Stability and compatibility update. Fixes a fatal error with short spacing values and improves view-count accuracy.
 
 = 1.0.2 =
 Added a WordPress Playground live preview demo with sample content and preconfigured plugin settings.

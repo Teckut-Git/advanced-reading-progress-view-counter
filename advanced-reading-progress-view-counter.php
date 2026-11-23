@@ -9,11 +9,11 @@
  *
  * Plugin Name:       Advanced Reading Progress & View Counter
  * Description:       Advanced reading progress bar with optional view counter controls.
- * Version:           1.0.2
+ * Version:           1.0.3
  * Requires at least: 6.7
- * Tested up to:      7.0
+ * Tested up to:      7.1
  * Requires PHP:      7.4
- * WC tested up to:   10.8.1
+ * WC tested up to:   11.3.1
  * WC requires at least: 6.5
  * Author:            Teckut
  * License:           GPL-2.0-or-later
@@ -51,26 +51,26 @@ add_action( 'before_woocommerce_init', 'arpvc_declare_wc_feature_compatibility' 
  */
 function arpvc_default_settings() {
 	return array(
-		'progress_enabled' => true,
-		'foreground_color' => '#ff0000',
-		'background_color' => '#f1f1f1',
-		'position'         => 'top',
-		'thickness'        => 8,
-		'post_types'       => array( 'post', 'page' ),
-		'display_mode'     => 'bar',
+		'progress_enabled'      => true,
+		'foreground_color'      => '#ff0000',
+		'background_color'      => '#f1f1f1',
+		'position'              => 'top',
+		'thickness'             => 8,
+		'post_types'            => array( 'post', 'page' ),
+		'display_mode'          => 'bar',
 		// View counter chip defaults.
-		'read_count_enabled'      => false,
-		'read_count_locations'    => array( 'post' ),
-		'read_count_position'     => 'before-content',
-		'read_count_prefix'       => __( 'Views:', 'advanced-reading-progress-view-counter' ),
-		'read_count_suffix'       => '',
-		'read_count_lock_hours'   => 24,
-		'read_count_wpm'          => 200,
-		'read_count_font_size'    => 14,
-		'read_count_margin'       => array( 8, 8, 8, 8 ),
-		'read_count_padding'      => array( 10, 12, 10, 12 ),
-		'read_count_bg_color'     => '#0f766e',
-		'read_count_text_color'   => '#ffffff',
+		'read_count_enabled'    => false,
+		'read_count_locations'  => array( 'post' ),
+		'read_count_position'   => 'before-content',
+		'read_count_prefix'     => __( 'Views:', 'advanced-reading-progress-view-counter' ),
+		'read_count_suffix'     => '',
+		'read_count_lock_hours' => 24,
+		'read_count_wpm'        => 200,
+		'read_count_font_size'  => 14,
+		'read_count_margin'     => array( 8, 8, 8, 8 ),
+		'read_count_padding'    => array( 10, 12, 10, 12 ),
+		'read_count_bg_color'   => '#0f766e',
+		'read_count_text_color' => '#ffffff',
 	);
 }
 
@@ -287,10 +287,9 @@ function arpvc_sanitize_int_quad( $values, $fallback = null ) {
 		foreach ( array_slice( $values, 0, 4 ) as $val ) {
 			$out[] = max( 0, absint( $val ) );
 		}
-		$limit = 4;
-		$current_count = count( $out );
+		$missing = 4 - count( $out );
 
-		while ( $current_count < $limit ) {
+		for ( $i = 0; $i < $missing; $i++ ) {
 			$out[] = 0;
 		}
 		return $out;
@@ -322,17 +321,17 @@ function arpvc_sanitize_display_mode( $mode, $fallback = null ) {
  * @return array
  */
 function arpvc_normalize_settings( array $settings, $with_fallback = true ) {
-	$defaults      = arpvc_default_settings();
-	$fallbacks     = $with_fallback ? $defaults : array_fill_keys( array_keys( $defaults ), null );
+	$defaults  = arpvc_default_settings();
+	$fallbacks = $with_fallback ? $defaults : array_fill_keys( array_keys( $defaults ), null );
 
 	return array(
-		'progress_enabled' => (bool) ( $settings['progress_enabled'] ?? $fallbacks['progress_enabled'] ),
-		'foreground_color' => arpvc_sanitize_color_value( $settings['foreground_color'] ?? null, $fallbacks['foreground_color'] ),
-		'background_color' => arpvc_sanitize_color_value( $settings['background_color'] ?? null, $fallbacks['background_color'] ),
-		'position'         => arpvc_sanitize_position( $settings['position'] ?? null, $fallbacks['position'] ),
-		'thickness'        => arpvc_sanitize_thickness( $settings['thickness'] ?? null, $fallbacks['thickness'] ),
-		'post_types'       => arpvc_sanitize_post_types( $settings['post_types'] ?? null, $fallbacks['post_types'] ),
-		'display_mode'     => arpvc_sanitize_display_mode( $settings['display_mode'] ?? null, $fallbacks['display_mode'] ),
+		'progress_enabled'      => (bool) ( $settings['progress_enabled'] ?? $fallbacks['progress_enabled'] ),
+		'foreground_color'      => arpvc_sanitize_color_value( $settings['foreground_color'] ?? null, $fallbacks['foreground_color'] ),
+		'background_color'      => arpvc_sanitize_color_value( $settings['background_color'] ?? null, $fallbacks['background_color'] ),
+		'position'              => arpvc_sanitize_position( $settings['position'] ?? null, $fallbacks['position'] ),
+		'thickness'             => arpvc_sanitize_thickness( $settings['thickness'] ?? null, $fallbacks['thickness'] ),
+		'post_types'            => arpvc_sanitize_post_types( $settings['post_types'] ?? null, $fallbacks['post_types'] ),
+		'display_mode'          => arpvc_sanitize_display_mode( $settings['display_mode'] ?? null, $fallbacks['display_mode'] ),
 		'read_count_enabled'    => (bool) ( $settings['read_count_enabled'] ?? $fallbacks['read_count_enabled'] ),
 		'read_count_locations'  => arpvc_sanitize_read_count_locations( $settings['read_count_locations'] ?? null, $fallbacks['read_count_locations'] ),
 		'read_count_position'   => arpvc_sanitize_read_count_position( $settings['read_count_position'] ?? null, $fallbacks['read_count_position'] ),
@@ -363,10 +362,8 @@ function arpvc_setting_keys() {
  * @return array
  */
 function arpvc_get_settings() {
-	static $cached = null;
-
-	if ( null !== $cached ) {
-		return $cached;
+	if ( isset( $GLOBALS['arpvc_settings_cache'] ) && is_array( $GLOBALS['arpvc_settings_cache'] ) ) {
+		return $GLOBALS['arpvc_settings_cache'];
 	}
 
 	$saved = get_option( 'arpvc_settings', null );
@@ -383,10 +380,21 @@ function arpvc_get_settings() {
 		}
 	}
 
-	$cached = arpvc_normalize_settings( $saved );
+	$GLOBALS['arpvc_settings_cache'] = arpvc_normalize_settings( $saved );
 
-	return $cached;
+	return $GLOBALS['arpvc_settings_cache'];
 }
+
+/**
+ * Invalidate the in-request settings cache after an option change.
+ *
+ * @return void
+ */
+function arpvc_clear_settings_cache() {
+	unset( $GLOBALS['arpvc_settings_cache'] );
+}
+add_action( 'update_option_arpvc_settings', 'arpvc_clear_settings_cache' );
+add_action( 'delete_option_arpvc_settings', 'arpvc_clear_settings_cache' );
 
 /**
  * Capability check for protected settings REST endpoints.
@@ -422,43 +430,43 @@ function arpvc_register_rest_routes() {
 					'callback'            => 'arpvc_rest_update_settings',
 					'permission_callback' => 'arpvc_rest_can_manage_settings',
 					'args'                => array(
-						'progress_enabled' => array(
+						'progress_enabled'      => array(
 							'type'     => 'boolean',
 							'required' => false,
 						),
-						'foreground_color' => array(
+						'foreground_color'      => array(
 							'type'              => 'string',
 							'required'          => false,
 							'sanitize_callback' => 'sanitize_hex_color',
 						),
-						'background_color' => array(
+						'background_color'      => array(
 							'type'              => 'string',
 							'required'          => false,
 							'sanitize_callback' => 'sanitize_hex_color',
 						),
-						'position'         => array(
-							'type'              => 'string',
-							'required'          => false,
-							'enum'              => arpvc_allowed_positions(),
+						'position'              => array(
+							'type'     => 'string',
+							'required' => false,
+							'enum'     => arpvc_allowed_positions(),
 						),
-						'thickness'        => array(
+						'thickness'             => array(
 							'type'              => 'integer',
 							'required'          => false,
 							'minimum'           => 1,
 							'maximum'           => 300,
 							'sanitize_callback' => 'absint',
 						),
-						'post_types'       => array(
-							'type'              => 'array',
-							'required'          => false,
-							'items'             => array(
+						'post_types'            => array(
+							'type'     => 'array',
+							'required' => false,
+							'items'    => array(
 								'type' => 'string',
 							),
 						),
-						'display_mode'     => array(
-							'type'              => 'string',
-							'required'          => false,
-							'enum'              => array( 'bar', 'radial' ),
+						'display_mode'          => array(
+							'type'     => 'string',
+							'required' => false,
+							'enum'     => array( 'bar', 'radial' ),
 						),
 						'read_count_enabled'    => array(
 							'type'     => 'boolean',
@@ -718,9 +726,9 @@ function arpvc_admin_enqueue_assets( $hook ) {
 		'arpvc-admin-js',
 		'arpvcAdmin',
 		array(
-			'restUrl' => esc_url_raw( rest_url( 'arpvc/v1/settings' ) ),
-			'nonce'   => wp_create_nonce( 'wp_rest' ),
-			'defaults' => arpvc_get_settings(),
+			'restUrl'   => esc_url_raw( rest_url( 'arpvc/v1/settings' ) ),
+			'nonce'     => wp_create_nonce( 'wp_rest' ),
+			'defaults'  => arpvc_get_settings(),
 			'postTypes' => $post_type_choices,
 		)
 	);
@@ -896,22 +904,32 @@ function arpvc_has_recent_read_count_view( $post_id, array $settings ) {
  * @return void
  */
 function arpvc_mark_recent_read_count_view( $post_id, array $settings ) {
-	$ttl          = arpvc_get_read_count_lock_seconds( $settings );
+	$ttl = arpvc_get_read_count_lock_seconds( $settings );
 
 	if ( $ttl < 1 ) {
 		return;
 	}
 
-	$expires      = time() + $ttl;
-	$cookie_name  = arpvc_get_read_count_cookie_name( $post_id );
-	$cookie_path  = defined( 'COOKIEPATH' ) && COOKIEPATH ? COOKIEPATH : '/';
+	$expires       = time() + $ttl;
+	$cookie_name   = arpvc_get_read_count_cookie_name( $post_id );
+	$cookie_path   = defined( 'COOKIEPATH' ) && COOKIEPATH ? COOKIEPATH : '/';
 	$cookie_domain = defined( 'COOKIE_DOMAIN' ) ? COOKIE_DOMAIN : '';
 
 	if ( ! headers_sent() ) {
-		setcookie( $cookie_name, '1', $expires, $cookie_path, $cookie_domain, is_ssl(), true );
+		$cookie_options = array(
+			'expires'  => $expires,
+			'path'     => $cookie_path,
+			'domain'   => $cookie_domain,
+			'secure'   => is_ssl(),
+			'httponly' => true,
+			'samesite' => 'Lax',
+		);
+
+		setcookie( $cookie_name, '1', $cookie_options );
 
 		if ( defined( 'SITECOOKIEPATH' ) && SITECOOKIEPATH && SITECOOKIEPATH !== $cookie_path ) {
-			setcookie( $cookie_name, '1', $expires, SITECOOKIEPATH, $cookie_domain, is_ssl(), true );
+			$cookie_options['path'] = SITECOOKIEPATH;
+			setcookie( $cookie_name, '1', $cookie_options );
 		}
 	}
 
@@ -926,31 +944,42 @@ function arpvc_mark_recent_read_count_view( $post_id, array $settings ) {
 }
 
 /**
- * Increment post view count with a fast SQL update + fallback insert.
+ * Atomically increment the stored meta row for a post.
  *
  * @param int $post_id Post ID.
- * @return void
+ * @return int Number of affected rows.
  */
-function arpvc_increment_read_count( $post_id ) {
+function arpvc_atomic_increment_read_count_row( $post_id ) {
 	global $wpdb;
 
-	$post_id = absint( $post_id );
-
-	if ( $post_id < 1 ) {
-		return;
-	}
-
 	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Atomic prepared increment avoids race conditions for concurrent requests.
-	$updated = (int) $wpdb->query(
+	return (int) $wpdb->query(
 		$wpdb->prepare(
 			"UPDATE {$wpdb->postmeta} SET meta_value = CAST(meta_value AS UNSIGNED) + 1 WHERE post_id = %d AND meta_key = %s",
 			$post_id,
 			'_arpvc_read_count'
 		)
 	);
+}
 
-	if ( $updated < 1 ) {
-		add_post_meta( $post_id, '_arpvc_read_count', 1, true );
+/**
+ * Increment post view count with a fast SQL update + fallback insert.
+ *
+ * @param int $post_id Post ID.
+ * @return void
+ */
+function arpvc_increment_read_count( $post_id ) {
+	$post_id = absint( $post_id );
+
+	if ( $post_id < 1 ) {
+		return;
+	}
+
+	if ( arpvc_atomic_increment_read_count_row( $post_id ) < 1 ) {
+		if ( ! add_post_meta( $post_id, '_arpvc_read_count', 1, true ) ) {
+			// Another request created the row first, so increment that row.
+			arpvc_atomic_increment_read_count_row( $post_id );
+		}
 	}
 
 	wp_cache_delete( $post_id, 'post_meta' );
@@ -999,8 +1028,9 @@ function arpvc_maybe_increment_read_count() {
 		return;
 	}
 
-	arpvc_increment_read_count( $post->ID );
+	// Mark the lock first so concurrent requests from the same visitor cannot both pass the check.
 	arpvc_mark_recent_read_count_view( $post->ID, $settings );
+	arpvc_increment_read_count( $post->ID );
 }
 add_action( 'template_redirect', 'arpvc_maybe_increment_read_count' );
 
@@ -1013,13 +1043,13 @@ add_action( 'template_redirect', 'arpvc_maybe_increment_read_count' );
  */
 function arpvc_render_read_count_chip( $post_id, array $settings ) {
 	$count   = arpvc_get_read_count( $post_id );
-	$prefix  = esc_html( $settings['read_count_prefix'] ?? '' );
-	$suffix  = esc_html( $settings['read_count_suffix'] ?? '' );
+	$prefix  = $settings['read_count_prefix'] ?? '';
+	$suffix  = $settings['read_count_suffix'] ?? '';
 	$font    = absint( $settings['read_count_font_size'] ?? 14 );
 	$margin  = $settings['read_count_margin'] ?? array( 8, 8, 8, 8 );
 	$padding = $settings['read_count_padding'] ?? array( 10, 12, 10, 12 );
-	$bg      = esc_attr( $settings['read_count_bg_color'] ?? '#0f766e' );
-	$text    = esc_attr( $settings['read_count_text_color'] ?? '#ffffff' );
+	$bg      = $settings['read_count_bg_color'] ?? '#0f766e';
+	$text    = $settings['read_count_text_color'] ?? '#ffffff';
 
 	$margin_css  = sprintf( '%dpx %dpx %dpx %dpx', $margin[0] ?? 0, $margin[1] ?? 0, $margin[2] ?? 0, $margin[3] ?? 0 );
 	$padding_css = sprintf( '%dpx %dpx %dpx %dpx', $padding[0] ?? 0, $padding[1] ?? 0, $padding[2] ?? 0, $padding[3] ?? 0 );
@@ -1198,7 +1228,7 @@ function arpvc_filter_the_title( $title, $post_id = 0 ) {
 
 	$chip = arpvc_render_read_count_chip( $post_id, $settings );
 
-    $safe_title = esc_html( $title );
+	$safe_title = esc_html( $title );
 
 	if ( 'before-title' === $position ) {
 		return $chip . ' ' . $safe_title;
