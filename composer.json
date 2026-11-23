@@ -24,9 +24,9 @@
     }
   },
   "scripts": {
-    "lint": "phpcs --standard=WordPress .",
-    "lint:fix": "phpcbf --standard=WordPress .",
-    "phpstan": "phpstan analyse --level=5",
-    "test": "phpunit --testdox"
+    "lint": "phpcs --standard=WordPress advanced-reading-progress-view-counter.php",
+    "lint:fix": "phpcbf --standard=WordPress advanced-reading-progress-view-counter.php",
+    "phpstan": "phpstan analyse --no-progress",
+    "test": "phpunit"
   }
 }

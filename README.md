@@ -91,48 +91,44 @@ if (function_exists('arpvc_get_progress_bar')) {
 # Clone repository
 git clone https://github.com/Teckut-Git/advanced-reading-progress-view-counter.git
 
-# Install dependencies
+# Install PHP test/lint dependencies
 composer install
-npm install
 
-# Development build (watch mode)
-npm run dev
-
-# Production build
+# Verify the shipped assets are present
 npm run build
 
 # Run tests
 composer run test
 
-# Lint code
+# Lint and static analysis
 composer run lint
-npm run lint:js
-npm run lint:css
+composer run phpstan
 ```
+
+> **Note:** the compiled files in `build/` are the canonical, WP.org-shipped
+> assets. The older files in `src/` do not reproduce them, so `npm run build`
+> verifies the shipped assets instead of overwriting them. Update files in
+> `build/` directly (and keep the WP.org copy in sync) when changing the UI.
 
 ### Project Structure
 ```
 ├── advanced-reading-progress-view-counter.php  # Main plugin file
 ├── readme.txt                                   # WordPress.org readme
 ├── composer.json                                # PHP dependencies
-├── package.json                                 # JS dependencies
-├── webpack.config.js                            # Build configuration
-├── src/
-│   ├── js/
-│   │   ├── scroll-tracker.js                    # Frontend progress tracker
-│   │   └── arpvc-admin.js                       # Admin enhancements
-│   └── css/
-│       ├── main.css                             # Frontend styles
-│       └── admin.css                            # Admin styles
-├── build/                                       # Compiled assets (gitignored in dev)
+├── package.json                                 # Asset verification script
+├── build/                                       # Shipped assets (canonical)
 │   ├── css/
 │   └── js/
+├── src/                                         # Legacy reference sources
+│   ├── js/
+│   └── css/
+├── scripts/verify-assets.js                     # Checks shipped assets exist
 ├── languages/                                   # Translation files
 ├── .github/
 │   ├── workflows/                               # GitHub Actions CI/CD
 │   ├── ISSUE_TEMPLATE/                          # Issue templates
 │   └── PULL_REQUEST_TEMPLATE.md                 # PR template
-└── tests/                                       # PHPUnit tests
+└── tests/                                       # PHPUnit tests + WP stubs
 ```
 
 ## Contributing
